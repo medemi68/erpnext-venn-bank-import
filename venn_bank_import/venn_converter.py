@@ -47,6 +47,10 @@ def convert_venn_to_erpnext_csv(rows: list[dict], bank_account: str) -> str:
 	writer.writerow(ERPNEXT_HEADERS)
 
 	for row in rows:
+		status = row.get("Status", "").strip().upper()
+		if status == "DECLINED":
+			continue
+
 		amount_str = row.get("Amount", "0").strip()
 		try:
 			amount = float(amount_str)
